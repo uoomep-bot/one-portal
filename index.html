@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>원통형기술그룹 통합 포털</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --bg: #f7f7f5;
+      --card-bg: #ffffff;
+      --accent: #2563eb;
+      --accent-light: #eff6ff;
+      --accent-hover: #1d4ed8;
+      --text-primary: #1a1a1a;
+      --text-secondary: #6b7280;
+      --text-muted: #9ca3af;
+      --border: #e5e7eb;
+      --shadow: 0 1px 4px rgba(0,0,0,.07);
+      --shadow-md: 0 4px 16px rgba(0,0,0,.10);
+      --radius: 10px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+      background: var(--bg);
+      color: var(--text-primary);
+      font-size: 14px;
+      min-height: 100vh;
+    }
+
+    /* ── 헤더 ── */
+    .header {
+      background: #fff;
+      border-bottom: 1px solid var(--border);
+      padding: 0 40px;
+      height: 56px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .brand-icon {
+      width: 32px;
+      height: 32px;
+      background: var(--accent);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .brand-name {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .brand-sub {
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .header-date {
+      font-size: 12px;
+      color: var(--text-secondary);
+      background: var(--bg);
+      padding: 5px 12px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+    }
+
+    /* ── 히어로 ── */
+    .hero {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 60%, #3b82f6 100%);
+      padding: 52px 40px 44px;
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -60px; right: -60px;
+      width: 320px; height: 320px;
+      background: rgba(255,255,255,.05);
+      border-radius: 50%;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: 30%;
+      width: 200px; height: 200px;
+      background: rgba(255,255,255,.04);
+      border-radius: 50%;
+    }
+
+    .hero-inner {
+      max-width: 900px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+      opacity: .7;
+      margin-bottom: 10px;
+    }
+
+    .hero-title {
+      font-size: 32px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 10px;
+    }
+
+    .hero-title span {
+      opacity: .55;
+      font-weight: 400;
+    }
+
+    .hero-desc {
+      font-size: 14px;
+      opacity: .75;
+      line-height: 1.7;
+    }
+
+    .hero-stats {
+      display: flex;
+      gap: 28px;
+      margin-top: 28px;
+    }
+
+    .hero-stat {
+      text-align: center;
+    }
+
+    .hero-stat-num {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .hero-stat-label {
+      font-size: 11px;
+      opacity: .65;
+      margin-top: 4px;
+    }
+
+    .hero-divider {
+      width: 1px;
+      background: rgba(255,255,255,.25);
+      align-self: stretch;
+    }
+
+    /* ── 메인 콘텐츠 ── */
+    .main {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 36px 40px 60px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 14px;
+    }
+
+    /* ── 플랫폼 카드 그리드 ── */
+    .platform-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-bottom: 36px;
+    }
+
+    .platform-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 20px;
+      cursor: pointer;
+      transition: box-shadow .15s, transform .15s, border-color .15s;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .platform-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--card-color, var(--accent));
+      border-radius: var(--radius) var(--radius) 0 0;
+    }
+
+    .platform-card:hover {
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+      border-color: var(--card-color, var(--accent));
+    }
+
+    .platform-card.coming-soon {
+      opacity: .6;
+      cursor: default;
+      pointer-events: none;
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .card-icon {
+      font-size: 28px;
+      line-height: 1;
+    }
+
+    .card-badge {
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 20px;
+      letter-spacing: .04em;
+    }
+
+    .badge-live {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    .badge-dev {
+      background: #fef9c3;
+      color: #854d0e;
+    }
+
+    .badge-soon {
+      background: var(--border);
+      color: var(--text-muted);
+    }
+
+    .card-title {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: 12px;
+      color: var(--text-secondary);
+      line-height: 1.6;
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 10px;
+      border-top: 1px solid var(--border);
+      font-size: 11px;
+      color: var(--text-muted);
+    }
+
+    .card-arrow {
+      font-size: 14px;
+      color: var(--card-color, var(--accent));
+      font-weight: 700;
+    }
+
+    /* ── 공지/업데이트 섹션 ── */
+    .bottom-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .info-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .info-card-header {
+      padding: 14px 18px;
+      border-bottom: 1px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .info-card-title {
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .info-card-body {
+      padding: 14px 18px;
+    }
+
+    .notice-item {
+      display: flex;
+      gap: 10px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+    }
+
+    .notice-item:last-child { border-bottom: none; }
+
+    .notice-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      margin-top: 5px;
+      flex-shrink: 0;
+    }
+
+    .notice-text { flex: 1; line-height: 1.5; }
+
+    .notice-date {
+      font-size: 11px;
+      color: var(--text-muted);
+      white-space: nowrap;
+    }
+
+    .quick-link {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 12px;
+      border-radius: 7px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-primary);
+      text-decoration: none;
+      transition: background .12s;
+      margin-bottom: 4px;
+    }
+
+    .quick-link:hover { background: var(--bg); }
+
+    .quick-link-icon {
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
+
+    .quick-link-desc {
+      font-size: 11px;
+      color: var(--text-muted);
+      font-weight: 400;
+    }
+
+    /* ── 푸터 ── */
+    .footer {
+      text-align: center;
+      padding: 20px 40px;
+      font-size: 12px;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      background: #fff;
+    }
+
+    /* ── 반응형 ── */
+    @media (max-width: 800px) {
+      .platform-grid { grid-template-columns: 1fr 1fr; }
+      .bottom-grid { grid-template-columns: 1fr; }
+      .hero { padding: 36px 20px 32px; }
+      .main { padding: 24px 20px 48px; }
+      .header { padding: 0 20px; }
+      .hero-title { font-size: 22px; }
+      .hero-stats { gap: 16px; }
+    }
+
+    @media (max-width: 500px) {
+      .platform-grid { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ── 헤더 ── -->
+<header class="header">
+  <div class="header-brand">
+    <div class="brand-icon">원</div>
+    <div>
+      <div class="brand-name">원통형기술그룹</div>
+      <div class="brand-sub">통합 포털</div>
+    </div>
+  </div>
+  <div class="header-date" id="header-date">날짜 로딩 중...</div>
+</header>
+
+<!-- ── 히어로 ── -->
+<section class="hero">
+  <div class="hero-inner">
+    <div class="hero-label">Wontong Tech Group · Integrated Portal</div>
+    <div class="hero-title">
+      원통형기술그룹<br>
+      <span>모든 플랫폼을 한 곳에서</span>
+    </div>
+    <div class="hero-desc">업무에 필요한 플랫폼을 바로 이동하세요.</div>
+    <div class="hero-stats">
+      <div class="hero-stat">
+        <div class="hero-stat-num" id="stat-platforms">1</div>
+        <div class="hero-stat-label">운영 중 플랫폼</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" id="stat-dev">2</div>
+        <div class="hero-stat-label">개발 중 플랫폼</div>
+      </div>
+      <div class="hero-divider"></div>
+      <div class="hero-stat">
+        <div class="hero-stat-num" id="stat-total">3</div>
+        <div class="hero-stat-label">전체 플랫폼</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── 메인 ── -->
+<main class="main">
+
+  <!-- 플랫폼 목록 -->
+  <div class="section-label">플랫폼 바로가기</div>
+  <div class="platform-grid">
+
+    <!-- ✅ 운영 중: 주간 그룹현황 -->
+    <a class="platform-card"
+       href="http://여기에_사내IP주소:3001"
+       style="--card-color:#2563eb"
+       target="_blank">
+      <div class="card-top">
+        <div class="card-icon">🏠</div>
+        <span class="card-badge badge-live">운영 중</span>
+      </div>
+      <div class="card-title">주간 그룹현황</div>
+      <div class="card-desc">인원현황, 비자현황, 교육일정, 보고일정 등 주간 그룹 현황을 통합 관리합니다.</div>
+      <div class="card-footer">
+        <span>인사 · 교육 · 일정 · 비용</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 🔨 개발 중: 자료탐색 -->
+    <a class="platform-card"
+       href="#"
+       style="--card-color:#7c3aed"
+       target="_blank">
+      <div class="card-top">
+        <div class="card-icon">🔍</div>
+        <span class="card-badge badge-dev">개발 중</span>
+      </div>
+      <div class="card-title">자료탐색 플랫폼</div>
+      <div class="card-desc">원통형기술그룹 관련 문서 및 자료를 검색하고 탐색합니다.</div>
+      <div class="card-footer">
+        <span>문서 · 검색 · 자료관리</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 🔨 개발 중: KPI 실적 -->
+    <a class="platform-card"
+       href="#"
+       style="--card-color:#059669"
+       target="_blank">
+      <div class="card-top">
+        <div class="card-icon">📊</div>
+        <span class="card-badge badge-dev">개발 중</span>
+      </div>
+      <div class="card-title">KPI 실적 조회</div>
+      <div class="card-desc">부서별 KPI 목표 대비 실적을 조회하고 분석합니다.</div>
+      <div class="card-footer">
+        <span>실적 · KPI · 분석</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 예정: 추가 플랫폼 자리 -->
+    <div class="platform-card coming-soon" style="--card-color:#9ca3af">
+      <div class="card-top">
+        <div class="card-icon">➕</div>
+        <span class="card-badge badge-soon">준비 중</span>
+      </div>
+      <div class="card-title">플랫폼 추가 예정</div>
+      <div class="card-desc">새로운 업무 플랫폼이 이 자리에 추가될 예정입니다.</div>
+      <div class="card-footer">
+        <span>추후 공개</span>
+        <span class="card-arrow">—</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- 공지 + 빠른링크 -->
+  <div class="bottom-grid">
+
+    <!-- 공지사항 -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <div class="info-card-title">📢 공지사항</div>
+      </div>
+      <div class="info-card-body">
+        <div class="notice-item">
+          <div class="notice-dot"></div>
+          <div class="notice-text">통합 포털이 오픈되었습니다. 각 플랫폼 바로가기를 이용해 주세요.</div>
+          <div class="notice-date" id="today-notice">오늘</div>
+        </div>
+        <div class="notice-item">
+          <div class="notice-dot" style="background:#f59e0b"></div>
+          <div class="notice-text">자료탐색·KPI 플랫폼은 현재 개발 중입니다. 완성 시 링크가 연결됩니다.</div>
+          <div class="notice-date">진행 중</div>
+        </div>
+        <div class="notice-item">
+          <div class="notice-dot" style="background:#9ca3af"></div>
+          <div class="notice-text">주간 그룹현황 플랫폼은 사내 네트워크에서만 접속 가능합니다.</div>
+          <div class="notice-date">안내</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 빠른 링크 -->
+    <div class="info-card">
+      <div class="info-card-header">
+        <div class="info-card-title">⚡ 자주 쓰는 링크</div>
+      </div>
+      <div class="info-card-body">
+        <a class="quick-link" href="http://여기에_사내IP주소:3001" target="_blank">
+          <div class="quick-link-icon" style="background:#eff6ff">🏠</div>
+          <div>
+            <div>주간 그룹현황</div>
+            <div class="quick-link-desc">인원·비자·교육·보고일정</div>
+          </div>
+        </a>
+        <a class="quick-link" href="#" target="_blank">
+          <div class="quick-link-icon" style="background:#f5f3ff">🔍</div>
+          <div>
+            <div>자료탐색</div>
+            <div class="quick-link-desc">개발 중</div>
+          </div>
+        </a>
+        <a class="quick-link" href="#" target="_blank">
+          <div class="quick-link-icon" style="background:#ecfdf5">📊</div>
+          <div>
+            <div>KPI 실적</div>
+            <div class="quick-link-desc">개발 중</div>
+          </div>
+        </a>
+      </div>
+    </div>
+
+  </div>
+</main>
+
+<!-- ── 푸터 ── -->
+<footer class="footer">
+  원통형기술그룹 통합 포털 · 문의: 기획팀
+</footer>
+
+<script>
+  // 날짜 표시
+  function updateDate() {
+    const now = new Date();
+    const ds = now.toLocaleDateString('ko-KR', {
+      year: 'numeric', month: 'long', day: 'numeric', weekday: 'short'
+    });
+    const el = document.getElementById('header-date');
+    if (el) el.textContent = ds;
+
+    const todayEl = document.getElementById('today-notice');
+    if (todayEl) {
+      todayEl.textContent = now.toLocaleDateString('ko-KR', { month: 'numeric', day: 'numeric' });
+    }
+  }
+  updateDate();
+</script>
+
+</body>
+</html>
